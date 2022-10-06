@@ -1,4 +1,4 @@
-package Practice;
+package Lab1.Task1;
 
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
@@ -37,54 +37,17 @@ class ThirdGLEventListener implements GLEventListener {
         /*
          * put your code here
          */
-        gl.glColor3d(0, 0, 1);  // r g b
-        // Size of the point
-        gl.glPointSize(10.0f);
-        gl.glBegin(GL2.GL_TRIANGLES);
-
-        gl.glVertex2d(0, 100);
-        gl.glVertex2d(-100, 0);
-        gl.glVertex2d(100, 0);
-
-        gl.glEnd();
-
         gl.glColor3d(1, 0, 0);
-        gl.glPointSize(10.0f);
-        gl.glBegin(GL2.GL_QUADS);
-
-        gl.glVertex2d(80, 0);
-        gl.glVertex2d(-80, 0);
-        gl.glVertex2d(-80, -80);
-        gl.glVertex2d(80, -80);
-
-        gl.glColor3d(0, 1, 0);
-
-        gl.glVertex2d(-15, -15);
-        gl.glVertex2d(-50, -15);
-        gl.glVertex2d(-50, -35);
-        gl.glVertex2d(-15, -35);
-
-        gl.glVertex2d(15, -15);
-        gl.glVertex2d(50, -15);
-        gl.glVertex2d(50, -35);
-        gl.glVertex2d(15, -35);
-
-        gl.glVertex2d(15, -45);
-        gl.glVertex2d(-15, -45);
-        gl.glVertex2d(-15, -75);
-        gl.glVertex2d(15, -75);
-
-        gl.glEnd();
-
-        gl.glColor3d(0, 0, 1);  // r g b
-        // Size of the point
-        gl.glPointSize(3.0f);
+        gl.glPointSize(8.0f);
         gl.glBegin(GL2.GL_POINTS);
 
-        gl.glVertex2d(10, -65);
+        for (int i = 0; i < 50; i++) {
+            int x = ThreadLocalRandom.current().nextInt(-100, 100);
+            int y = ThreadLocalRandom.current().nextInt(-100, 100);
+            gl.glVertex2d(x, y);
+        }
 
         gl.glEnd();
-
     }
 
     public void reshape(GLAutoDrawable drawable, int x, int y, int width,
@@ -100,7 +63,7 @@ class ThirdGLEventListener implements GLEventListener {
     }
 }
 
-public class Test {
+public class Task1 {
     public static void main(String[] args) {
         //getting the capabilities object of GL2 profile
         final GLProfile profile = GLProfile.get(GLProfile.GL2);
@@ -111,7 +74,7 @@ public class Test {
         glcanvas.addGLEventListener(b);
         glcanvas.setSize(400, 400);
         //creating frame
-        final JFrame frame = new JFrame("My Frame");
+        final JFrame frame = new JFrame("Lab 1 Task 1");
         //adding canvas to frame
         frame.add(glcanvas);
         frame.setSize(640, 480);

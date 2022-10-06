@@ -1,11 +1,10 @@
-package Practice;
+package Lab1.Task2;
 
 import com.jogamp.opengl.*;
 import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
 
 import javax.swing.*;
-import java.util.concurrent.ThreadLocalRandom;
 
 class ThirdGLEventListener implements GLEventListener {
     /**
@@ -100,7 +99,7 @@ class ThirdGLEventListener implements GLEventListener {
     }
 }
 
-public class Test {
+public class Task2 {
     public static void main(String[] args) {
         //getting the capabilities object of GL2 profile
         final GLProfile profile = GLProfile.get(GLProfile.GL2);
@@ -111,7 +110,7 @@ public class Test {
         glcanvas.addGLEventListener(b);
         glcanvas.setSize(400, 400);
         //creating frame
-        final JFrame frame = new JFrame("My Frame");
+        final JFrame frame = new JFrame("Lab 1 Task 2");
         //adding canvas to frame
         frame.add(glcanvas);
         frame.setSize(640, 480);
