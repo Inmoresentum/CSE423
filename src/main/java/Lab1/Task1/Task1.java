@@ -5,6 +5,7 @@ import com.jogamp.opengl.awt.GLCanvas;
 import com.jogamp.opengl.glu.GLU;
 
 import javax.swing.*;
+import java.util.HashMap;
 import java.util.concurrent.ThreadLocalRandom;
 
 class ThirdGLEventListener implements GLEventListener {
@@ -20,7 +21,7 @@ class ThirdGLEventListener implements GLEventListener {
         GL2 gl = gld.getGL().getGL2();
         glu = new GLU();
 
-        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         gl.glViewport(-250, -150, 250, 150);
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
@@ -41,9 +42,10 @@ class ThirdGLEventListener implements GLEventListener {
         gl.glPointSize(8.0f);
         gl.glBegin(GL2.GL_POINTS);
 
+        HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < 50; i++) {
-            int x = ThreadLocalRandom.current().nextInt(-100, 100);
-            int y = ThreadLocalRandom.current().nextInt(-100, 100);
+            int x = ThreadLocalRandom.current().nextInt(-250, 250);
+            int y = ThreadLocalRandom.current().nextInt(-150, 150);
             gl.glVertex2d(x, y);
         }
 
