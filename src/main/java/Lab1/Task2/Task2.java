@@ -19,7 +19,7 @@ class ThirdGLEventListener implements GLEventListener {
         GL2 gl = gld.getGL().getGL2();
         glu = new GLU();
 
-        gl.glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+        gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         gl.glViewport(-250, -150, 250, 150);
         gl.glMatrixMode(GL2.GL_PROJECTION);
         gl.glLoadIdentity();
