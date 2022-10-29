@@ -42,7 +42,6 @@ class ThirdGLEventListener implements GLEventListener {
         gl.glPointSize(8.0f);
         gl.glBegin(GL2.GL_POINTS);
 
-        HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < 50; i++) {
             int x = ThreadLocalRandom.current().nextInt(-250, 250);
             int y = ThreadLocalRandom.current().nextInt(-150, 150);

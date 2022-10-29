@@ -36,54 +36,61 @@ class ThirdGLEventListener implements GLEventListener {
         /*
          * put your code here
          */
-        gl.glColor3d(0, 0, 1);  // r g b
+        gl.glColor3d(1, 1, 1);  // r g b
         // Size of the point
         gl.glPointSize(10.0f);
-        gl.glBegin(GL2.GL_TRIANGLES);
 
-        gl.glVertex2d(0, 100);
-        gl.glVertex2d(-100, 0);
-        gl.glVertex2d(100, 0);
+        drawTriangle(gl, 0, 100, -100, 0, 100, 0);
 
-        gl.glEnd();
+        // Outer One
+        drawRectangle(gl, 80, 0, -80, 0, -80, -80, 80, -80);
+        // Inner 1st one
+        drawRectangle(gl, -15, -15, -50, -15, -50, -35, -15, -35);
+        // Inner 2nd one
+        drawRectangle(gl, 15, -15, 50, -15, 50, -35, 15, -35);
+        // Inner 3rd One
+        drawRectangle(gl, 15, -45, -15, -45, -15, -75, 15, -75);
 
-        gl.glColor3d(1, 0, 0);
-        gl.glPointSize(10.0f);
-        gl.glBegin(GL2.GL_QUADS);
-
-        gl.glVertex2d(80, 0);
-        gl.glVertex2d(-80, 0);
-        gl.glVertex2d(-80, -80);
-        gl.glVertex2d(80, -80);
-
-        gl.glColor3d(0, 1, 0);
-
-        gl.glVertex2d(-15, -15);
-        gl.glVertex2d(-50, -15);
-        gl.glVertex2d(-50, -35);
-        gl.glVertex2d(-15, -35);
-
-        gl.glVertex2d(15, -15);
-        gl.glVertex2d(50, -15);
-        gl.glVertex2d(50, -35);
-        gl.glVertex2d(15, -35);
-
-        gl.glVertex2d(15, -45);
-        gl.glVertex2d(-15, -45);
-        gl.glVertex2d(-15, -75);
-        gl.glVertex2d(15, -75);
-
-        gl.glEnd();
-
-        gl.glColor3d(0, 0, 1);  // r g b
         // Size of the point
         gl.glPointSize(3.0f);
         gl.glBegin(GL2.GL_POINTS);
-
+        // Point on the door
         gl.glVertex2d(10, -65);
 
         gl.glEnd();
 
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private static void drawRectangle(GL2 gl, int x1, int y1, int x2, int y2, int x3, int y3, int x4, int y4) {
+        gl.glBegin(GL2.GL_LINES);
+        gl.glVertex2d(x1, y1);
+        gl.glVertex2d(x2, y2);
+
+        gl.glVertex2d(x2, y2);
+        gl.glVertex2d(x3, y3);
+
+        gl.glVertex2d(x3, y3);
+        gl.glVertex2d(x4, y4);
+
+        gl.glVertex2d(x4, y4);
+        gl.glVertex2d(x1, y1);
+        gl.glEnd();
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    private static void drawTriangle(GL2 gl, int x1, int y1, int x2, int y2, int x3, int y3) {
+        gl.glBegin(GL2.GL_LINES);
+        gl.glVertex2d(x1, y1);
+        gl.glVertex2d(x2, y2);
+
+        gl.glVertex2d(x2, y2);
+        gl.glVertex2d(x3, y3);
+
+        gl.glVertex2d(x3, y3);
+        gl.glVertex2d(x1, y1);
+
+        gl.glEnd();
     }
 
     public void reshape(GLAutoDrawable drawable, int x, int y, int width,
