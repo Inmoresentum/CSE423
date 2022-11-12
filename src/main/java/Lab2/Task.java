@@ -199,7 +199,6 @@ class MidPointComputation {
 
         ArrayList<Pair> pixels = calculatePoints(convertedPoints1.x, convertedPoints1.y,
                 convertedPoints2.x, convertedPoints2.y);
-        // System.out.println(pixels);
         // Time to convert back the pixels to the original zone
         ArrayList<Pair> originalPixels = new ArrayList<>();
 
