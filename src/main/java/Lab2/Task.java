@@ -87,31 +87,42 @@ class MidPointComputation {
     @SuppressWarnings("SuspiciousNameCombination")
     private Pair convertToZoneZero(int zone, int x, int y) {
         Pair points = new Pair();
-        if (zone == 0) {
-            points.x = x;
-            points.y = y;
-        } else if (zone == 1) {
-            points.x = y;
-            points.y = x;
-        } else if (zone == 2) {
-            points.x = y;
-            points.y = -x;
-        } else if (zone == 3) {
-            points.x = -x;
-            points.y = y;
-        } else if (zone == 4) {
-            points.x = -x;
-            points.y = -y;
-        } else if (zone == 5) {
-            points.x = -y;
-            points.y = -x;
-        } else if (zone == 6) {
-            points.x = -y;
-            points.y = x;
-        } else if (zone == 7) {
-            points.x = x;
-            points.y = -y;
-        } else throw new RuntimeException("Zone must need to between 0 and 7");
+        switch (zone) {
+            case 0:
+                points.x = x;
+                points.y = y;
+                break;
+            case 1:
+                points.x = y;
+                points.y = x;
+                break;
+            case 2:
+                points.x = y;
+                points.y = -x;
+                break;
+            case 3:
+                points.x = -x;
+                points.y = y;
+                break;
+            case 4:
+                points.x = -x;
+                points.y = -y;
+                break;
+            case 5:
+                points.x = -y;
+                points.y = -x;
+                break;
+            case 6:
+                points.x = -y;
+                points.y = x;
+                break;
+            case 7:
+                points.x = x;
+                points.y = -y;
+                break;
+            default:
+                throw new RuntimeException("Zone must need to between 0 and 7");
+        }
         return points;
     }
 
@@ -119,31 +130,42 @@ class MidPointComputation {
     private Pair convertToOriginalZone(int originalZone, int x, int y) {
         Pair points = new Pair();
 
-        if (originalZone == 0) {
-            points.x = x;
-            points.y = y;
-        } else if (originalZone == 1) {
-            points.x = y;
-            points.y = x;
-        } else if (originalZone == 2) {
-            points.x = -y;
-            points.y = x;
-        } else if (originalZone == 3) {
-            points.x = -x;
-            points.y = y;
-        } else if (originalZone == 4) {
-            points.x = -x;
-            points.y = -y;
-        } else if (originalZone == 5) {
-            points.x = -y;
-            points.y = -x;
-        } else if (originalZone == 6) {
-            points.x = y;
-            points.y = -x;
-        } else if (originalZone == 7) {
-            points.x = x;
-            points.y = -y;
-        } else throw new RuntimeException("Zone should be between 0 to 7!");
+        switch (originalZone) {
+            case 0:
+                points.x = x;
+                points.y = y;
+                break;
+            case 1:
+                points.x = y;
+                points.y = x;
+                break;
+            case 2:
+                points.x = -y;
+                points.y = x;
+                break;
+            case 3:
+                points.x = -x;
+                points.y = y;
+                break;
+            case 4:
+                points.x = -x;
+                points.y = -y;
+                break;
+            case 5:
+                points.x = -y;
+                points.y = -x;
+                break;
+            case 6:
+                points.x = y;
+                points.y = -x;
+                break;
+            case 7:
+                points.x = x;
+                points.y = -y;
+                break;
+            default:
+                throw new RuntimeException("Zone should be between 0 to 7!");
+        }
         return points;
     }
 
@@ -202,65 +224,78 @@ class MidPointComputation {
 
     private ArrayList<Pair> findPixelsForDigit(boolean isLast, int toCheck) {
         ArrayList<Pair> pixels = new ArrayList<>();
-        if (toCheck == 0) {
-            pixels.addAll(getPixelsForLineOne(isLast));
-            pixels.addAll(getPixelsForLineTwo(isLast));
-            pixels.addAll(getPixelsForLineFour(isLast));
-            pixels.addAll(getPixelsForLineFive(isLast));
-            pixels.addAll(getPixelsForLineSix(isLast));
-            pixels.addAll(getPixelsForLineSeven(isLast));
-        } else if (toCheck == 1) {
-            pixels.addAll(getPixelsForLineSeven(isLast));
-            pixels.addAll(getPixelsForLineSix(isLast));
-        } else if (toCheck == 2) {
-            pixels.addAll(getPixelsForLineOne(isLast));
-            pixels.addAll(getPixelsForLineSeven(isLast));
-            pixels.addAll(getPixelsForLineThree(isLast));
-            pixels.addAll(getPixelsForLineFour(isLast));
-            pixels.addAll(getPixelsForLineFive(isLast));
-        } else if (toCheck == 3) {
-            pixels.addAll(getPixelsForLineOne(isLast));
-            pixels.addAll(getPixelsForLineSeven(isLast));
-            pixels.addAll(getPixelsForLineThree(isLast));
-            pixels.addAll(getPixelsForLineSix(isLast));
-            pixels.addAll(getPixelsForLineFive(isLast));
-        } else if (toCheck == 4) {
-            pixels.addAll(getPixelsForLineTwo(isLast));
-            pixels.addAll(getPixelsForLineThree(isLast));
-            pixels.addAll(getPixelsForLineSeven(isLast));
-            pixels.addAll(getPixelsForLineSix(isLast));
-        } else if (toCheck == 5) {
-            pixels.addAll(getPixelsForLineOne(isLast));
-            pixels.addAll(getPixelsForLineTwo(isLast));
-            pixels.addAll(getPixelsForLineThree(isLast));
-            pixels.addAll(getPixelsForLineSix(isLast));
-            pixels.addAll(getPixelsForLineFive(isLast));
-        } else if (toCheck == 6) {
-            pixels.addAll(getPixelsForLineOne(isLast));
-            pixels.addAll(getPixelsForLineTwo(isLast));
-            pixels.addAll(getPixelsForLineThree(isLast));
-            pixels.addAll(getPixelsForLineFour(isLast));
-            pixels.addAll(getPixelsForLineFive(isLast));
-            pixels.addAll(getPixelsForLineSix(isLast));
-        } else if (toCheck == 7) {
-            pixels.addAll(getPixelsForLineOne(isLast));
-            pixels.addAll(getPixelsForLineSeven(isLast));
-            pixels.addAll(getPixelsForLineSix(isLast));
-        } else if (toCheck == 8) {
-            pixels.addAll(getPixelsForLineOne(isLast));
-            pixels.addAll(getPixelsForLineTwo(isLast));
-            pixels.addAll(getPixelsForLineThree(isLast));
-            pixels.addAll(getPixelsForLineFour(isLast));
-            pixels.addAll(getPixelsForLineFive(isLast));
-            pixels.addAll(getPixelsForLineSix(isLast));
-            pixels.addAll(getPixelsForLineSeven(isLast));
-        } else if (toCheck == 9) {
-            pixels.addAll(getPixelsForLineOne(isLast));
-            pixels.addAll(getPixelsForLineTwo(isLast));
-            pixels.addAll(getPixelsForLineThree(isLast));
-            pixels.addAll(getPixelsForLineSeven(isLast));
-            pixels.addAll(getPixelsForLineSix(isLast));
-        } else throw new RuntimeException("Digit must be between 0 - 9");
+        switch (toCheck) {
+            case 0:
+                pixels.addAll(getPixelsForLineOne(isLast));
+                pixels.addAll(getPixelsForLineTwo(isLast));
+                pixels.addAll(getPixelsForLineFour(isLast));
+                pixels.addAll(getPixelsForLineFive(isLast));
+                pixels.addAll(getPixelsForLineSix(isLast));
+                pixels.addAll(getPixelsForLineSeven(isLast));
+                break;
+            case 1:
+                pixels.addAll(getPixelsForLineSeven(isLast));
+                pixels.addAll(getPixelsForLineSix(isLast));
+                break;
+            case 2:
+                pixels.addAll(getPixelsForLineOne(isLast));
+                pixels.addAll(getPixelsForLineSeven(isLast));
+                pixels.addAll(getPixelsForLineThree(isLast));
+                pixels.addAll(getPixelsForLineFour(isLast));
+                pixels.addAll(getPixelsForLineFive(isLast));
+                break;
+            case 3:
+                pixels.addAll(getPixelsForLineOne(isLast));
+                pixels.addAll(getPixelsForLineSeven(isLast));
+                pixels.addAll(getPixelsForLineThree(isLast));
+                pixels.addAll(getPixelsForLineSix(isLast));
+                pixels.addAll(getPixelsForLineFive(isLast));
+                break;
+            case 4:
+                pixels.addAll(getPixelsForLineTwo(isLast));
+                pixels.addAll(getPixelsForLineThree(isLast));
+                pixels.addAll(getPixelsForLineSeven(isLast));
+                pixels.addAll(getPixelsForLineSix(isLast));
+                break;
+            case 5:
+                pixels.addAll(getPixelsForLineOne(isLast));
+                pixels.addAll(getPixelsForLineTwo(isLast));
+                pixels.addAll(getPixelsForLineThree(isLast));
+                pixels.addAll(getPixelsForLineSix(isLast));
+                pixels.addAll(getPixelsForLineFive(isLast));
+                break;
+            case 6:
+                pixels.addAll(getPixelsForLineOne(isLast));
+                pixels.addAll(getPixelsForLineTwo(isLast));
+                pixels.addAll(getPixelsForLineThree(isLast));
+                pixels.addAll(getPixelsForLineFour(isLast));
+                pixels.addAll(getPixelsForLineFive(isLast));
+                pixels.addAll(getPixelsForLineSix(isLast));
+                break;
+            case 7:
+                pixels.addAll(getPixelsForLineOne(isLast));
+                pixels.addAll(getPixelsForLineSeven(isLast));
+                pixels.addAll(getPixelsForLineSix(isLast));
+                break;
+            case 8:
+                pixels.addAll(getPixelsForLineOne(isLast));
+                pixels.addAll(getPixelsForLineTwo(isLast));
+                pixels.addAll(getPixelsForLineThree(isLast));
+                pixels.addAll(getPixelsForLineFour(isLast));
+                pixels.addAll(getPixelsForLineFive(isLast));
+                pixels.addAll(getPixelsForLineSix(isLast));
+                pixels.addAll(getPixelsForLineSeven(isLast));
+                break;
+            case 9:
+                pixels.addAll(getPixelsForLineOne(isLast));
+                pixels.addAll(getPixelsForLineTwo(isLast));
+                pixels.addAll(getPixelsForLineThree(isLast));
+                pixels.addAll(getPixelsForLineSeven(isLast));
+                pixels.addAll(getPixelsForLineSix(isLast));
+                break;
+            default:
+                throw new RuntimeException("Digit must be between 0 - 9");
+        }
         return pixels;
     }
 
@@ -324,6 +359,7 @@ public class Task {
         // The canvas
         final GLCanvas glcanvas = new GLCanvas(capabilities);
         ThirdGLEventListener b = new ThirdGLEventListener();
+        // Initializing the Pixels list's for drawing
         b.setPixels(pixels);
         glcanvas.addGLEventListener(b);
         glcanvas.setSize(400, 400);
