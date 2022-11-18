@@ -41,7 +41,7 @@ class ThirdGLEventListener implements GLEventListener {
         /*
          * put your code here
          */
-        gl.glColor3d(1, 0, 0);
+        gl.glColor3d(1, 0.35, 0.65);
         gl.glPointSize(10.0f);
         gl.glBegin(GL2.GL_POINTS);
         for (Pair p : pixels) {
@@ -85,9 +85,9 @@ class MidPointComputation {
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
-    private Pair convertToZoneZero(int zone, int x, int y) {
+    private Pair convertToZoneZero(int originalZone, int x, int y) {
         Pair points = new Pair();
-        switch (zone) {
+        switch (originalZone) {
             case 0:
                 points.x = x;
                 points.y = y;
@@ -169,7 +169,7 @@ class MidPointComputation {
         return points;
     }
 
-    private ArrayList<Pair> calculatePoints(int x1, int y1, int x2, int y2) {
+    private ArrayList<Pair> calculateDrawingPixels(int x1, int y1, int x2, int y2) {
         ArrayList<Pair> pixels = new ArrayList<>();
         int dx, dy, d, incE, incNE, x, y;
         dx = x2 - x1;
@@ -190,14 +190,14 @@ class MidPointComputation {
         return pixels;
     }
 
-    public ArrayList<Pair> findDrawingPoints(boolean isLastDigit, int x1, int y1, int x2, int y2) {
+    private ArrayList<Pair> findDrawingPixels(boolean isLastDigit, int x1, int y1, int x2, int y2) {
         int originalZone = findZone(x1, y1, x2, y2);
         Pair convertedPoints1 = convertToZoneZero(originalZone, x1, y1);
         Pair convertedPoints2 = convertToZoneZero(originalZone, x2, y2);
 
-        // time to call the calculatePoints method and get all the points to for zone 1
+        // time to call the calculateDrawingPixels method and get all the points to for zone 1
 
-        ArrayList<Pair> pixels = calculatePoints(convertedPoints1.x, convertedPoints1.y,
+        ArrayList<Pair> pixels = calculateDrawingPixels(convertedPoints1.x, convertedPoints1.y,
                 convertedPoints2.x, convertedPoints2.y);
         // Time to convert back the pixels to the original zone
         ArrayList<Pair> originalPixels = new ArrayList<>();
@@ -214,6 +214,7 @@ class MidPointComputation {
     public ArrayList<Pair> takeInputAndFindNecessaryPixels() {
         ArrayList<Pair> necessaryPixels = new ArrayList<>();
         String studentId = takeInput();
+        if (studentId.length() != 8) throw new RuntimeException("Student Id must be of length 8");
         int seventhDigit = Integer.parseInt(String.valueOf(studentId.charAt(6))),
                 eightDigit = Integer.parseInt(String.valueOf(studentId.charAt(7)));
         necessaryPixels.addAll(findPixelsForDigit(false, seventhDigit));
@@ -299,37 +300,42 @@ class MidPointComputation {
     }
 
     private ArrayList<Pair> getPixelsForLineOne(boolean isLast) {
-        return findDrawingPoints(isLast, -110, 80, -20, 80);
+        return findDrawingPixels(isLast, -110, 80, -20, 80);
     }
 
     private ArrayList<Pair> getPixelsForLineTwo(boolean isLast) {
-        return findDrawingPoints(isLast, -110, 80, -110, 0);
+        return findDrawingPixels(isLast, -110, 80, -110, 0);
     }
 
     private ArrayList<Pair> getPixelsForLineThree(boolean isLast) {
-        return findDrawingPoints(isLast, -110, 0, -20, 0);
+        return findDrawingPixels(isLast, -110, 0, -20, 0);
     }
 
     private ArrayList<Pair> getPixelsForLineFour(boolean isLast) {
-        return findDrawingPoints(isLast, -110, 0, -110, -80);
+        return findDrawingPixels(isLast, -110, 0, -110, -80);
     }
 
     private ArrayList<Pair> getPixelsForLineFive(boolean isLast) {
-        return findDrawingPoints(isLast, -110, -80, -20, -80);
+        return findDrawingPixels(isLast, -110, -80, -20, -80);
     }
 
     private ArrayList<Pair> getPixelsForLineSix(boolean isLast) {
-        return findDrawingPoints(isLast, -20, -80, -20, 0);
+        return findDrawingPixels(isLast, -20, -80, -20, 0);
     }
 
     private ArrayList<Pair> getPixelsForLineSeven(boolean isLast) {
-        return findDrawingPoints(isLast, -20, 0, -20, 80);
+        return findDrawingPixels(isLast, -20, 0, -20, 80);
     }
 
     private String takeInput() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter pw = new PrintWriter(new BufferedOutputStream(System.out));
+        pw.print("Please enter your studentID: ");
+        pw.close();
         try {
-            return new StringTokenizer(br.readLine()).nextToken();
+            String inputString = new StringTokenizer(br.readLine()).nextToken();
+            br.close();
+            return inputString;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
