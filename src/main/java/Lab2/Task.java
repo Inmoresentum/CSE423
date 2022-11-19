@@ -41,7 +41,7 @@ class ThirdGLEventListener implements GLEventListener {
         /*
          * put your code here
          */
-        gl.glColor3d(1, 0.35, 0.65);
+        gl.glColor3d(0.80, 0.90, 0.15);
         gl.glPointSize(10.0f);
         gl.glBegin(GL2.GL_POINTS);
         for (Pair p : pixels) {
@@ -71,16 +71,18 @@ class MidPointComputation {
 
     private int findZone(int x1, int y1, int x2, int y2) {
         int zone;
+        // what if it's just a point.
+        if (x1 == x2 && y1 == y2) return 0;
         int dx = x2 - x1, dy = y2 - y1;
         if (dy >= 0 && dx > dy) zone = 0;
-        else if (dx >= 0 && dy > 0 && dy > dx) zone = 1;
+        else if (dx >= 0 && dy > 0 && dy >= dx) zone = 1;
         else if (dx <= 0 && dy > 0 && dy > Math.abs(dx)) zone = 2;
-        else if (dx < 0 && dy >= 0 && Math.abs(dx) > dy) zone = 3;
+        else if (dx < 0 && dy >= 0 && Math.abs(dx) >= dy) zone = 3;
         else if (dx < 0 && dy <= 0 && Math.abs(dx) > Math.abs(dy)) zone = 4;
-        else if (dx <= 0 && dy < 0 && Math.abs(dy) > Math.abs(dx)) zone = 5;
+        else if (dx <= 0 && dy < 0 && Math.abs(dy) >= Math.abs(dx)) zone = 5;
         else if (dx >= 0 && dy < 0 && Math.abs(dy) > dx) zone = 6;
-        else if (dx > 0 && dy <= 0 && dx > Math.abs(dy)) zone = 7;
-        else throw new RuntimeException("Can't determine zone! Fix it!!");
+        else if (dx > 0 && dy <= 0 && dx >= Math.abs(dy)) zone = 7;
+        else throw new RuntimeException("Can't determine zone!!! Fix it");
         return zone;
     }
 
@@ -190,7 +192,8 @@ class MidPointComputation {
         return pixels;
     }
 
-    private ArrayList<Pair> findDrawingPixels(boolean isLastDigit, int x1, int y1, int x2, int y2) {
+    private ArrayList<Pair> findDrawingPixels(boolean isLastDigit, int x1, int y1,
+                                              int x2, int y2) {
         int originalZone = findZone(x1, y1, x2, y2);
         Pair convertedPoints1 = convertToZoneZero(originalZone, x1, y1);
         Pair convertedPoints2 = convertToZoneZero(originalZone, x2, y2);
@@ -214,7 +217,12 @@ class MidPointComputation {
     public ArrayList<Pair> takeInputAndFindNecessaryPixels() {
         ArrayList<Pair> necessaryPixels = new ArrayList<>();
         String studentId = takeInput();
-        if (studentId.length() != 8) throw new RuntimeException("Student Id must be of length 8");
+        try {
+            Long.parseLong(studentId);
+        } catch (Exception e) {
+            throw new RuntimeException("Given Input is not a student ID");
+        }
+        if (studentId.length() != 8) throw new RuntimeException("Student ID must be of length 8");
         int seventhDigit = Integer.parseInt(String.valueOf(studentId.charAt(6))),
                 eightDigit = Integer.parseInt(String.valueOf(studentId.charAt(7)));
         necessaryPixels.addAll(findPixelsForDigit(false, seventhDigit));
@@ -294,7 +302,7 @@ class MidPointComputation {
                 pixels.addAll(getPixelsForLineSix(isLast));
                 break;
             default:
-                throw new RuntimeException("Digit must be between 0 - 9");
+                throw new RuntimeException("Digit must be between [0 - 9]");
         }
         return pixels;
     }
@@ -330,7 +338,7 @@ class MidPointComputation {
     private String takeInput() {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter pw = new PrintWriter(new BufferedOutputStream(System.out));
-        pw.print("Please enter your studentID: ");
+        pw.print("Please enter your student ID: ");
         pw.close();
         try {
             String inputString = new StringTokenizer(br.readLine()).nextToken();
