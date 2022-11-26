@@ -61,7 +61,7 @@ class ThirdGLEventListener implements GLEventListener {
 
 public class Temp {
     public static void main(String[] args) {
-        //getting the capabilities object of GL2 profile
+        //getting the capability object of GL2 profile
         final GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
         // The canvas
