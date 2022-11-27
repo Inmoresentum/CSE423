@@ -15,6 +15,7 @@ class ThirdGLEventListener implements GLEventListener {
     /**
      * Take care of initialization here.
      */
+    @SuppressWarnings("DuplicatedCode")
     public void init(GLAutoDrawable gld) {
         GL2 gl = gld.getGL().getGL2();
         /*
@@ -75,11 +76,16 @@ class MidPointCircleCalculation {
         pw.flush();
         StringTokenizer tk = new StringTokenizer(br.readLine());
         int x = Integer.parseInt(tk.nextToken()), y = Integer.parseInt(tk.nextToken());
+        if (Math.abs(x) > 250) throw new RuntimeException("Value of x must need to be between -250 and 250");
+        if (Math.abs(y) > 150) throw new RuntimeException("Value of y must need to be between -150 and 150");
         Pair center = new Pair(x, y);
         pw.print("Please enter the radius of the circle : ");
         pw.flush();
         tk = new StringTokenizer(br.readLine());
         int radius = Integer.parseInt(tk.nextToken());
+        if (radius < 0) throw new RuntimeException("Radius can't be negative! It must need to be positive integer");
+        if (Math.abs(x) + radius > 250 || Math.abs(y) + radius > 150)
+            throw new RuntimeException("Out of the drawing pixel range!");
         pw.print("Please enter the number of inner circle : ");
         pw.close();
         tk = new StringTokenizer(br.readLine());
@@ -98,11 +104,8 @@ class MidPointCircleCalculation {
         double delTheta = ONE_FULL_REVOLUTION / numberOfInnerCircle;
         double curThetaValue = 0.0;
         while (curThetaValue < ONE_FULL_REVOLUTION) {
-            int x = (int) Math.round((Math.cos(curThetaValue) * RADIUS_OF_INNER_CIRCLE));
-            int y = (int) Math.round((Math.sin(curThetaValue) * RADIUS_OF_INNER_CIRCLE));
-            // Now it's time to convert x, y relative to the center of the Outer Circle.
-            x = centerOfTheOuterCircle.x + x;
-            y = centerOfTheOuterCircle.y + y;
+            int x = (int) Math.round((Math.cos(curThetaValue) * RADIUS_OF_INNER_CIRCLE)) + centerOfTheOuterCircle.x;
+            int y = (int) Math.round((Math.sin(curThetaValue) * RADIUS_OF_INNER_CIRCLE)) + centerOfTheOuterCircle.y;
             pixels.addAll(findDrawingPixels(new Pair(x, y), (int) RADIUS_OF_INNER_CIRCLE));
             curThetaValue += delTheta;
         }
