@@ -9,17 +9,17 @@ import com.jogamp.opengl.glu.GLU;
 import javax.swing.JFrame;
 
 class ThirdGLEventListener implements GLEventListener {
-    /**
-     * Interface to the GLU library.
-     */
-    private GLU glu;
 
     /**
      * Take care of initialization here.
      */
+    @SuppressWarnings("DuplicatedCode")
     public void init(GLAutoDrawable gld) {
         GL2 gl = gld.getGL().getGL2();
-        glu = new GLU();
+        /*
+         * Interface to the GLU library.
+         */
+        GLU glu = new GLU();
 
         gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         gl.glViewport(-250, -150, 250, 150);
@@ -50,6 +50,7 @@ class ThirdGLEventListener implements GLEventListener {
                         int height) {
     }
 
+    @SuppressWarnings("unused")
     public void displayChanged(GLAutoDrawable drawable,
                                boolean modeChanged, boolean deviceChanged) {
     }
@@ -60,6 +61,7 @@ class ThirdGLEventListener implements GLEventListener {
 }
 
 public class Temp {
+    @SuppressWarnings("DuplicatedCode")
     public static void main(String[] args) {
         //getting the capability object of GL2 profile
         final GLProfile profile = GLProfile.get(GLProfile.GL2);

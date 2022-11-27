@@ -10,19 +10,19 @@ import java.util.*;
 
 
 class ThirdGLEventListener implements GLEventListener {
-    /**
-     * Interface to the GLU library.
-     */
-    private GLU glu;
     private ArrayList<Pair> pixels;
 
     /**
      * Take care of initialization here.
      */
 
+    @SuppressWarnings("DuplicatedCode")
     public void init(GLAutoDrawable gld) {
         GL2 gl = gld.getGL().getGL2();
-        glu = new GLU();
+        /*
+         * Interface to the GLU library.
+         */
+        GLU glu = new GLU();
 
         gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         gl.glViewport(-250, -150, 250, 150);
@@ -54,6 +54,7 @@ class ThirdGLEventListener implements GLEventListener {
                         int height) {
     }
 
+    @SuppressWarnings("unused")
     public void displayChanged(GLAutoDrawable drawable,
                                boolean modeChanged, boolean deviceChanged) {
     }
@@ -69,6 +70,7 @@ class ThirdGLEventListener implements GLEventListener {
 
 class MidPointComputation {
 
+    @SuppressWarnings("ConstantConditions")
     private int findZone(int x1, int y1, int x2, int y2) {
         int zone;
         // what if it's just a point.
