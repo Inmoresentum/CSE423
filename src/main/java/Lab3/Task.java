@@ -37,8 +37,8 @@ class ThirdGLEventListener implements GLEventListener {
 
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
 
-        gl.glColor3d(0.44, 0.0, 0.57);
-        gl.glPointSize(3);
+        gl.glColor3d(1, 0, 0);
+        gl.glPointSize(2.5f);
         gl.glBegin(GL2.GL_POINTS);
         for (Pair pair : drawingPixels) {
             gl.glVertex2d(pair.x, pair.y);
@@ -67,8 +67,8 @@ class ThirdGLEventListener implements GLEventListener {
 @SuppressWarnings("SuspiciousNameCombination")
 class MidPointCircleCalculation {
     public ArrayList<Pair> takeInputAndInitialize() throws IOException {
-        final PrintWriter pw = new PrintWriter(new BufferedOutputStream(System.out));
-        final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter pw = new PrintWriter(new BufferedOutputStream(System.out));
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         pw.print("Please enter the center of the circle seperated by a space : ");
         pw.flush();
         StringTokenizer tk = new StringTokenizer(br.readLine());
@@ -80,31 +80,30 @@ class MidPointCircleCalculation {
         pw.flush();
         tk = new StringTokenizer(br.readLine());
         int radius = Integer.parseInt(tk.nextToken());
-        if (radius < 0) throw new RuntimeException("Radius can't be negative! It must need to be positive integer!");
+        if (radius < 0) throw new RuntimeException("Radius can't be negative! It must need to be positive integer");
         if (Math.abs(x) + radius > 250 || Math.abs(y) + radius > 150)
             throw new RuntimeException("Out of the drawing pixel range!");
-        pw.print("Please enter the number of inner circle(s) : ");
+        pw.print("Please enter the number of inner circle : ");
         pw.close();
         tk = new StringTokenizer(br.readLine());
         int numberOfInnerCircle = Integer.parseInt(tk.nextToken());
         br.close();
-        if (numberOfInnerCircle < 0)
-            throw new RuntimeException("The number of inner circles must need to be a positive integer!");
+        if (numberOfInnerCircle < 0) throw new RuntimeException("The number of inner circle must need to be a positive integer.");
         ArrayList<Pair> drawingPixels = findPixelsForInnerCircle(radius, center, numberOfInnerCircle);
         drawingPixels.addAll(findDrawingPixels(center, radius));
         return drawingPixels;
     }
 
     private ArrayList<Pair> findPixelsForInnerCircle(int radiusOfTheOuterCircle,
-                                                     Pair centerOfTheOuterCircle, final int NUMBER_OF_INNER_CIRCLE) {
+                                                     Pair centerOfTheOuterCircle, int numberOfInnerCircle) {
         ArrayList<Pair> pixels = new ArrayList<>();
         // If the number of inner circle values is equal to zero,
         // then don't need to calculate anything.
         // Just return an empty List.
-        if (NUMBER_OF_INNER_CIRCLE == 0) return pixels;
+        if (numberOfInnerCircle == 0) return pixels;
         final double ONE_FULL_REVOLUTION_IN_RADIANS = 2 * Math.PI;
         final double RADIUS_OF_INNER_CIRCLE = radiusOfTheOuterCircle / 2.0;
-        final double DEL_THETA = ONE_FULL_REVOLUTION_IN_RADIANS / NUMBER_OF_INNER_CIRCLE;
+        final double delTheta = ONE_FULL_REVOLUTION_IN_RADIANS / numberOfInnerCircle;
         double curThetaValueInRadians = 0.0;
         while (curThetaValueInRadians < ONE_FULL_REVOLUTION_IN_RADIANS) {
             int x = (int) Math.round((Math.cos(curThetaValueInRadians)
@@ -113,7 +112,7 @@ class MidPointCircleCalculation {
                     * RADIUS_OF_INNER_CIRCLE)) + centerOfTheOuterCircle.y;
             pixels.addAll(findDrawingPixels(new Pair(x, y),
                     (int) RADIUS_OF_INNER_CIRCLE));
-            curThetaValueInRadians += DEL_THETA;
+            curThetaValueInRadians += delTheta;
         }
         return pixels;
     }
