@@ -6,8 +6,7 @@ import com.jogamp.opengl.glu.GLU;
 
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
 
 class ThirdGLEventListener implements GLEventListener {
     private ArrayList<Pair> drawingPixels;
@@ -37,9 +36,7 @@ class ThirdGLEventListener implements GLEventListener {
         GL2 gl = drawable.getGL().getGL2();
 
         gl.glClear(GL2.GL_COLOR_BUFFER_BIT);
-        /*
-         * put your code here
-         */
+
         gl.glColor3d(1, 0, 0);
         gl.glPointSize(2.5f);
         gl.glBegin(GL2.GL_POINTS);
@@ -96,18 +93,21 @@ class MidPointCircleCalculation {
         return drawingPixels;
     }
 
-    private ArrayList<Pair> findPixelsForInnerCircle(int radiusOfTheOuterCircle, Pair centerOfTheOuterCircle,
-                                                     int numberOfInnerCircle) {
-        final double ONE_FULL_REVOLUTION = 2 * Math.PI;
+    private ArrayList<Pair> findPixelsForInnerCircle(int radiusOfTheOuterCircle,
+                                                     Pair centerOfTheOuterCircle, int numberOfInnerCircle) {
+        final double ONE_FULL_REVOLUTION_IN_RADIANS = 2 * Math.PI;
         final double RADIUS_OF_INNER_CIRCLE = radiusOfTheOuterCircle / 2.0;
         ArrayList<Pair> pixels = new ArrayList<>();
-        double delTheta = ONE_FULL_REVOLUTION / numberOfInnerCircle;
-        double curThetaValue = 0.0;
-        while (curThetaValue < ONE_FULL_REVOLUTION) {
-            int x = (int) Math.round((Math.cos(curThetaValue) * RADIUS_OF_INNER_CIRCLE)) + centerOfTheOuterCircle.x;
-            int y = (int) Math.round((Math.sin(curThetaValue) * RADIUS_OF_INNER_CIRCLE)) + centerOfTheOuterCircle.y;
-            pixels.addAll(findDrawingPixels(new Pair(x, y), (int) RADIUS_OF_INNER_CIRCLE));
-            curThetaValue += delTheta;
+        final double delTheta = ONE_FULL_REVOLUTION_IN_RADIANS / numberOfInnerCircle;
+        double curThetaValueInRadians = 0.0;
+        while (curThetaValueInRadians < ONE_FULL_REVOLUTION_IN_RADIANS) {
+            int x = (int) Math.round((Math.cos(curThetaValueInRadians)
+                    * RADIUS_OF_INNER_CIRCLE)) + centerOfTheOuterCircle.x;
+            int y = (int) Math.round((Math.sin(curThetaValueInRadians)
+                    * RADIUS_OF_INNER_CIRCLE)) + centerOfTheOuterCircle.y;
+            pixels.addAll(findDrawingPixels(new Pair(x, y),
+                    (int) RADIUS_OF_INNER_CIRCLE));
+            curThetaValueInRadians += delTheta;
         }
         return pixels;
     }
@@ -123,17 +123,17 @@ class MidPointCircleCalculation {
     }
 
     private ArrayList<Pair> findPixelsForOtherZone(ArrayList<Pair> zoneOneOriginalPixel) {
-        ArrayList<Pair> temp = new ArrayList<>();
+        ArrayList<Pair> pixelsForOtherZones = new ArrayList<>();
         for (Pair pair : zoneOneOriginalPixel) {
-            temp.add(findPixelForZoneZero(pair));
-            temp.add(findPixelForZoneTwo(pair));
-            temp.add(findPixelForZoneThree(pair));
-            temp.add(findPixelForZoneFour(pair));
-            temp.add(findPixelForZoneFive(pair));
-            temp.add(findPixelForZoneSix(pair));
-            temp.add(findPixelForZoneSeven(pair));
+            pixelsForOtherZones.add(findPixelForZoneZero(pair));
+            pixelsForOtherZones.add(findPixelForZoneTwo(pair));
+            pixelsForOtherZones.add(findPixelForZoneThree(pair));
+            pixelsForOtherZones.add(findPixelForZoneFour(pair));
+            pixelsForOtherZones.add(findPixelForZoneFive(pair));
+            pixelsForOtherZones.add(findPixelForZoneSix(pair));
+            pixelsForOtherZones.add(findPixelForZoneSeven(pair));
         }
-        return temp;
+        return pixelsForOtherZones;
     }
 
     private ArrayList<Pair> midPointCircle(int radius) {
@@ -206,6 +206,7 @@ public class Task {
         // The canvas
         final GLCanvas glcanvas = new GLCanvas(capabilities);
         ThirdGLEventListener b = new ThirdGLEventListener();
+        // Setting the pixels for drawing the circles
         b.setDrawingPixels(pixels);
         glcanvas.addGLEventListener(b);
         glcanvas.setSize(400, 400);
