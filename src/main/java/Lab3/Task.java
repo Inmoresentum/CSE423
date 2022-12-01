@@ -29,7 +29,7 @@ class ThirdGLEventListener implements GLEventListener {
         glu.gluOrtho2D(-250.0, 250.0, -150.0, 150.0);
     }
 
-    /**
+    /*
      * Take care of drawing here.
      */
     public void display(GLAutoDrawable drawable) {
@@ -88,6 +88,7 @@ class MidPointCircleCalculation {
         tk = new StringTokenizer(br.readLine());
         int numberOfInnerCircle = Integer.parseInt(tk.nextToken());
         br.close();
+        if (numberOfInnerCircle < 0) throw new RuntimeException("The number of inner circles must need to be a positive integer.");
         ArrayList<Pair> drawingPixels = findPixelsForInnerCircle(radius, center, numberOfInnerCircle);
         drawingPixels.addAll(findDrawingPixels(center, radius));
         return drawingPixels;
@@ -95,9 +96,13 @@ class MidPointCircleCalculation {
 
     private ArrayList<Pair> findPixelsForInnerCircle(int radiusOfTheOuterCircle,
                                                      Pair centerOfTheOuterCircle, int numberOfInnerCircle) {
+        ArrayList<Pair> pixels = new ArrayList<>();
+        // If the number of inner circle values is equal to zero,
+        // then don't need to calculate anything.
+        // Just return an empty List.
+        if (numberOfInnerCircle == 0) return pixels;
         final double ONE_FULL_REVOLUTION_IN_RADIANS = 2 * Math.PI;
         final double RADIUS_OF_INNER_CIRCLE = radiusOfTheOuterCircle / 2.0;
-        ArrayList<Pair> pixels = new ArrayList<>();
         final double delTheta = ONE_FULL_REVOLUTION_IN_RADIANS / numberOfInnerCircle;
         double curThetaValueInRadians = 0.0;
         while (curThetaValueInRadians < ONE_FULL_REVOLUTION_IN_RADIANS) {
