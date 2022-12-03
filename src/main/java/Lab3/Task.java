@@ -204,9 +204,10 @@ class Pair {
 
 public class Task {
     public static void main(String[] args) throws IOException {
-        //getting the capability object of GL2 profile
+        // Doing all the calculations for circles
         MidPointCircleCalculation midPointCircleCalculation = new MidPointCircleCalculation();
         ArrayList<Pair> pixels = midPointCircleCalculation.takeInputAndInitialize();
+        //getting the capability object of GL2 profile
         final GLProfile profile = GLProfile.get(GLProfile.GL2);
         GLCapabilities capabilities = new GLCapabilities(profile);
         // The canvas
