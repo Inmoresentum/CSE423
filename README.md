@@ -1,11 +1,11 @@
-# CSE423 FALL 2023 Labs Assignment
+# CSE423 FALL 2023 Lab(s) Assignment
 
 This Project contains all the assignment problems and solutions that I submitted in
 **JAVA**.
 
 ### Prerequisites
 
-What you will need is just basic Java knowledge and a bit of experience with Maven. 
+What you will need is just basic **Java** knowledge and a bit of experience with **Maven**. 
 
 ## Setup
 
@@ -13,19 +13,20 @@ To get started, you will need a suitable [jdk](https://www.oracle.com/java/techn
 For this project, I used [Corretto 8 jdk](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html)
 to avoid any sort of issues.
 
-However, if you are using [IntellijIdea](https://www.jetbrains.com/idea/), you clone this project 
-and open it with it and then Open the `Project Struecture` from the top
-right corner or you `find action` menu to open it up.
-After that, go to project and change the `SDK` 
+However, if you are using [IntellijIdea](https://www.jetbrains.com/idea/), clone this project 
+and open it and then Open the `Project Struecture` from the top
+right corner or use `find action` menu to open it up.
+After that, go to `project` and change the `SDK` 
 to the **JDK** version of your choice.
 Make sure to change the `language level` and 
-also make sure to make change in the [pom.xml](pom.xml).
+also make sure to make change in the [pom.xml](pom.xml) if the version you have chosen is not `8`.
 Wait for it to finish downloading all the 
 dependencies, and then you are good to go.
-Now just run [Temp.java](src/main/java/Temp.java) and check if you get any frame as output.
+Now just run [Temp.java](src/main/java/Temp.java) and **check if you get any frame as output**.
 
 
-Alternatively, you set it up using whatever way you prefer as long as the dependencies meet.
+Alternatively, you set it up using whatever way you prefer as long as the **dependencies** are fulfilled.
+For example, **gradle** can be used instead of **maven** if preferred.
 
 ## Getting Started
 * You can find all the assignment questions in the [Lab File](/src/main/java/Lab%20Files)
