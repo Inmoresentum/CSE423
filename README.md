@@ -24,7 +24,6 @@ Wait for it to finish downloading all the
 dependencies, and then you are good to go.
 Now just run [Temp.java](src/main/java/Temp.java) and **check if you get any frame as output**.
 
-
 Alternatively, you set it up using whatever way you prefer as long as the **dependencies** are fulfilled.
 For example, **gradle** can be used instead of **maven** if preferred.
 
