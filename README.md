@@ -1,4 +1,4 @@
-# CSE423 FALL 2023 Lab(s) Assignment
+<h1 align="center">CSE423 FALL 2023 Lab(s) Assignment</h1>
 
 This Project contains all the assignment problems and solutions that I submitted in
 **JAVA**.
